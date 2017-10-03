@@ -11,7 +11,9 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,14 +22,14 @@ import java.util.concurrent.Executors;
  * @author thomasthimothee
  */
 public class Server {
-      private static int PORT = 8081;
+
+    private static int PORT = 8081;
     private static String IP = "0.0.0.0";
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket;
         ExecutorService es = Executors.newFixedThreadPool(1084);
-        List<Client> listClients = new ArrayList();
-        
+        Map<String, Client> listClients = new HashMap();
 
         serverSocket = new ServerSocket();
         serverSocket.bind(new InetSocketAddress(IP, PORT));
@@ -35,7 +37,6 @@ public class Server {
         while (true) {
             Socket socket = serverSocket.accept();
             Client client = new Client(socket, listClients);
-            listClients.add(client);
             es.execute(client);
         }
     }
