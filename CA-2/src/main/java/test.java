@@ -12,13 +12,11 @@
  * @author thomasthimothee
  */
 public class test {
-    private String test;
+    
         public static void main(String[] args) {
             String test = "hello";
             String[] testArray = test.split(":");
-            System.out.println("1");
             System.out.println("size "+testArray.length);
             System.out.println("index0 "+testArray[0]);
-            System.out.println("2");
         }
 }
