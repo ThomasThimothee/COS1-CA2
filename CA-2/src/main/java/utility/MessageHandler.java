@@ -17,7 +17,7 @@ public class MessageHandler {
         return mh;
     }
 
-    public void handleMessage(String inputLine, Client client) {
+    public synchronized void handleMessage(String inputLine, Client client) {
         String[] splitMessage = inputLine.split(":");
         String command;
         String target;
@@ -79,7 +79,8 @@ public class MessageHandler {
 
     public void sendMessage(String message, Client client, Client otherClient) {
         String output = "MSGRES:" + client.getName() + ":" + message;
-        client.getOut().println(output);
+        otherClient.getOut().println(output);
+        client.getOut().println("Message sent to user: " + otherClient.getName());
     }
 
     public void logout(Client client) {
@@ -88,9 +89,10 @@ public class MessageHandler {
     }
 
     public void login(String userName, Client client) {
-        if (client.getListClients().get(userName) != null) {
+        if (client.getListClients().get(userName) == null) {
             client.setName(userName);
             client.getListClients().put(userName, client);
+            client.getOut().println("Logged in user: " + client.getName());
         } else {
             // Handle error
         }

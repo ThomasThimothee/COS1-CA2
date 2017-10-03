@@ -27,6 +27,7 @@ public class Client implements Runnable {
     private final Scanner in;
     private Map<String, Client> listClients = new HashMap();
     private String name;
+    private Boolean isOpen = true;
 
     public Client(Socket socket, Map<String, Client> listClients) throws IOException {
         this.clientSocket = socket;
@@ -37,16 +38,16 @@ public class Client implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (isOpen) {
             String inputLine = in.nextLine();
             MessageHandler.getMessageHandler().handleMessage(inputLine, this);
-            
         }
     }
 
     public void close() {
         in.close();
         out.close();
+        isOpen = false;
         try {
             clientSocket.close();
 

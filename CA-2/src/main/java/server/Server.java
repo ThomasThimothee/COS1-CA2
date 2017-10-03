@@ -28,7 +28,7 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket;
-        ExecutorService es = Executors.newFixedThreadPool(1084);
+        ExecutorService es = Executors.newCachedThreadPool();
         Map<String, Client> listClients = new HashMap();
 
         serverSocket = new ServerSocket();
