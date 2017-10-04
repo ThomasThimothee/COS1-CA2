@@ -41,7 +41,7 @@ public class Client implements Runnable {
     public void run() {
         while (isOpen) {
             String inputLine = in.nextLine();
-            MessageHandler.getMessageHandler().handleMessage(inputLine, this);
+            MessageHandler.getMessageHandler().handleMessage(inputLine, this, listClients);
         }
     }
 
@@ -57,14 +57,7 @@ public class Client implements Runnable {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public String printNames() {
-        String str = "";
-        for (Entry<String, Client> entry : listClients.entrySet()) {
-            str =  entry.getKey();
-    
-    }
-        return str;
-    }
+
 
     public Map<String, Client> getListClients() {
         return listClients;

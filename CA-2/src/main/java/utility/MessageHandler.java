@@ -1,6 +1,7 @@
 package utility;
 
 import client.Client;
+import java.util.Map;
 
 /**
  *
@@ -17,7 +18,7 @@ public class MessageHandler {
         return mh;
     }
 
-    public synchronized void handleMessage(String inputLine, Client client) {
+    public synchronized void handleMessage(String inputLine, Client client, Map<String, Client> listClients) {
         String[] splitMessage = inputLine.split(":");
         String command;
         String target;
@@ -26,7 +27,7 @@ public class MessageHandler {
         switch (splitMessage.length) {
             case 1:
                 if (splitMessage[0].equals("LOGOUT") && inputLine.substring(inputLine.length() - 1).equals(":")) {
-                    logout(client);
+                    logout(client, listClients);
                 } else {
                     //wrong command
                 }
@@ -38,7 +39,7 @@ public class MessageHandler {
                     case "LOGIN":
                         if (!userName.substring(userName.length() - 1).equals(":")) {
                             if (!userName.contains(",")) {
-                                login(userName, client);
+                                login(userName, client, listClients);
                             }
                         } else {
                             // Handle error
@@ -83,19 +84,30 @@ public class MessageHandler {
         client.getOut().println("Message sent to user: " + otherClient.getName());
     }
 
-    public void logout(Client client) {
+    public void logout(Client client, Map<String, Client> listClients) {
         client.getListClients().remove(client.getName());
+        printNameList(listClients);
         client.close();
     }
 
-    public void login(String userName, Client client) {
+    public void login(String userName, Client client, Map<String, Client> listClients) {
         if (client.getListClients().get(userName) == null) {
             client.setName(userName);
             client.getListClients().put(userName, client);
-         
-            client.getOut().println("CLIENTLIST: " + client.printNames());
+            printNameList(listClients);
         } else {
             // Handle error
+        }
+    }
+
+    public void printNameList(Map<String, Client> listClients) {
+        String str = "";
+        for (Map.Entry<String, Client> entry : listClients.entrySet()) {
+            str += entry.getKey() + ",";
+        }
+        str = str.substring(0, str.length() - 1);
+        for (Map.Entry<String, Client> entry : listClients.entrySet()) {
+            entry.getValue().getOut().println("CLIENTLIST:" + str);
         }
     }
 }
