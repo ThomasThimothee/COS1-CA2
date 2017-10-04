@@ -57,13 +57,11 @@ public class MessageHandler {
                     case "MSG":
                         if (!message.substring(message.length() - 1).equals(":")) {
                             String[] persons = target.split(",");
-
                             for (String person : persons) {
                                 if (client.getListClients().get(person) != null) {
                                     sendMessage(message, client, client.getListClients().get(person));
                                 }
                             }
-
                         }
                         break;
                     default:

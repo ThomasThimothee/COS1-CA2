@@ -40,4 +40,20 @@ public class Server {
             es.execute(client);
         }
     }
+
+    public void setPort(int port) {
+        PORT = port;
+    }
+
+    public int getPort() {
+        return PORT;
+    }
+
+    public void setIP(String ip) {
+        IP = ip;
+    }
+
+    public String getIP() {
+        return IP;
+    }
 }
