@@ -37,9 +37,13 @@ public class MessageHandler {
                 userName = splitMessage[1];
                 switch (command) {
                     case "LOGIN":
-                        if (!userName.substring(userName.length() - 1).equals(":")) {
+                        if (client.getIsLoggedIn()){
+                            //scenario when already logged in
+                        }
+                        else if (!userName.substring(userName.length() - 1).equals(":")) {
                             if (!userName.contains(",")) {
                                 login(userName, client, listClients);
+                                client.setIsLoggedIn(true);
                             }
                         } else {
                             // Handle error

@@ -29,6 +29,7 @@ public class Client implements Runnable {
     private Map<String, Client> listClients = new HashMap();
     private String name;
     private Boolean isOpen = true;
+    private Boolean isLoggedIn = false;
 
     public Client(Socket socket, Map<String, Client> listClients) throws IOException {
         this.clientSocket = socket;
@@ -78,5 +79,14 @@ public class Client implements Runnable {
     public Scanner getIn() {
         return in;
     }
+
+    public Boolean getIsLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setIsLoggedIn(Boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+    }
+    
     
 }
