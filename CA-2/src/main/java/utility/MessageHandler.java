@@ -92,7 +92,8 @@ public class MessageHandler {
         if (client.getListClients().get(userName) == null) {
             client.setName(userName);
             client.getListClients().put(userName, client);
-            client.getOut().println("Logged in user: " + client.getName());
+         
+            client.getOut().println("CLIENTLIST: " + client.printNames());
         } else {
             // Handle error
         }

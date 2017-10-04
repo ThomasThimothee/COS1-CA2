@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +57,14 @@ public class Client implements Runnable {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public String printNames() {
+        String str = "";
+        for (Entry<String, Client> entry : listClients.entrySet()) {
+            str =  entry.getKey();
+    
+    }
+        return str;
+    }
 
     public Map<String, Client> getListClients() {
         return listClients;
@@ -76,6 +85,5 @@ public class Client implements Runnable {
     public Scanner getIn() {
         return in;
     }
-    
     
 }
