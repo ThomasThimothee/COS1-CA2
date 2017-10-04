@@ -65,7 +65,7 @@ public class MessageHandler {
                         if (!message.substring(message.length() - 1).equals(":")){ 
                             if (target.equals("*"))
                               {
-                                
+                                sentToAll(listClients,message,client);
                               }
                             String[] persons = target.split(",");
 
@@ -91,7 +91,6 @@ public class MessageHandler {
     public void sendMessage(String message, Client client, Client otherClient) {
         String output = "MSGRES:" + client.getName() + ":" + message;
         otherClient.getOut().println(output);
-        client.getOut().println("Message sent to user: " + otherClient.getName());
     }
 
     public void logout(Client client, Map<String, Client> listClients) {
