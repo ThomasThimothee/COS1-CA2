@@ -65,7 +65,7 @@ public class MessageHandler {
                         if (!message.substring(message.length() - 1).equals(":")){ 
                             if (target.equals("*"))
                               {
-                                
+                                sentToAll(listClients , message , client);
                               }
                             String[] persons = target.split(",");
 
@@ -105,6 +105,7 @@ public class MessageHandler {
             client.setName(userName);
             client.getListClients().put(userName, client);
             printNameList(listClients);
+
         } else {
             // Handle error
         }
