@@ -34,7 +34,7 @@ public class Server {
         serverSocket = new ServerSocket();
         serverSocket.bind(new InetSocketAddress(IP, PORT));
 
-        while (true) {
+      while (true) {
             Socket socket = serverSocket.accept();
             Client client = new Client(socket, listClients);
             es.execute(client);
