@@ -41,6 +41,8 @@ public class MessageHandler {
                             //scenario when already logged in
                         }
                         else if (!userName.substring(userName.length() - 1).equals(":")) {
+                            
+                        
                             if (!userName.contains(",")) {
                                 login(userName, client, listClients);
                                 client.setIsLoggedIn(true);
@@ -60,7 +62,11 @@ public class MessageHandler {
                 message = splitMessage[2];
                 switch (command) {
                     case "MSG":
-                        if (!message.substring(message.length() - 1).equals(":")) {
+                        if (!message.substring(message.length() - 1).equals(":")){ 
+                            if (target.equals("*"))
+                              {
+                                
+                              }
                             String[] persons = target.split(",");
 
                             for (String person : persons) {
@@ -113,5 +119,12 @@ public class MessageHandler {
         for (Map.Entry<String, Client> entry : listClients.entrySet()) {
             entry.getValue().getOut().println("CLIENTLIST:" + str);
         }
+    }
+    
+    public void sentToAll (Map<String, Client> listClients, String msg , Client client){
+        for (Map.Entry<String, Client> entry : listClients.entrySet())
+          {
+            sendMessage(msg,client,entry.getValue());
+          }
     }
 }
